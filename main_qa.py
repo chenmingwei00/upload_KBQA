@@ -9,7 +9,7 @@ import jieba.posseg
 # from KBQA_small_data_version1.simaple_kbqa_1.hellp_ltp import *
 from stanfordcorenlp import StanfordCoreNLP
 from KBQA_small_data_version1.kbqa.connectSQLServer import connectSQL
-from KBQA_small_data.kbqa.entity_recognize import Entity
+from KBQA_small_data_version1.kbqa.entity_recognize import Entity
 import numpy as np
 import re
 from IPython.display import display
@@ -27,22 +27,22 @@ pd.set_option('display.width',1000000)
 pd.set_option('display.max_columns',None)
 class Robots:
     def __init__(self):
-        pkl_file = open('../../KBQA_small_data/data/entity_template.pkl', 'rb')
+        pkl_file = open('./KBQA_small_data_version1/train_param/entity_template.pkl', 'rb')
         self.template_property = pickle.load(pkl_file)
-        ppt_file=open('../../KBQA_small_data/data/ppt_update_update1.pkl', 'rb')
+        ppt_file=open('./KBQA_small_data_version1/train_param/ppt_update_update1.pkl', 'rb')
         self.ppt_property=pickle.load(ppt_file)
-        concept_fre=open('../../KBQA_small_data/data/concept_count.pkl', 'rb')
+        concept_fre=open('./KBQA_small_data_version1/train_param/concept_count.pkl', 'rb')
         self.concept_fre=pickle.load(concept_fre)
         self.jieba_pos = ['i', 'j', 'l','nr', 'nt', 'nz', 'b', 'nrfg','zg']
         self.unused_pos=['b','c','dg','e','o','p','r','u','w','y','z','uj','x']
         self.stanford_pos=['NR']
         self.tf_idf = jieba.analyse.extract_tags
-        self.nlp = StanfordCoreNLP(path_or_host='../../stanford-corenlp/stanford-corenlp-full-2017-06-09/',lang='zh')
+        self.nlp = StanfordCoreNLP(path_or_host='./KBQA_small_data_version1/stanford-corenlp/stanford-corenlp-full-2017-06-09/',lang='zh')
         self.sql2 = "SELECT * FROM [chentian].[dbo].[baike_triples1] WHERE entity ='%s' "
         self.sql = "SELECT * FROM [chentian].[dbo].[baike_triples1] WHERE entity in %(name)s "
         self.sq3="SELECT * FROM [chentian].[dbo].[m2e1] where entity='%s'"
         self.entity_re=Entity()
-        self.model = gensim.models.Word2Vec.load('../../w2vModel/corpus.model')
+        self.model = gensim.models.Word2Vec.load('./KBQA_small_data_version1/word2vec/corpus.model')
     def get_answer_qa(self,sentence):
         """
         对用户问题进行实体识别，产生实体，然后找到实体类别，形成template，

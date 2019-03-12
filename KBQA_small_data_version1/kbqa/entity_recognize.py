@@ -29,7 +29,7 @@ class Entity:
     def __init__(self):
         self.jieba_pos=['i','j','l' ,'m' ,'nr','nt','nz','b','nrfg']
         self.tf_idf=jieba.analyse.extract_tags
-        self.nlp = StanfordCoreNLP(path_or_host='../../stanford-corenlp/stanford-corenlp-full-2017-06-09/',lang='zh')
+        self.nlp = StanfordCoreNLP(path_or_host='./KBQA_small_data_version1/stanford-corenlp/stanford-corenlp-full-2017-06-09/',lang='zh')
         self.sql="SELECT * FROM [chentian].[dbo].[baike_triples1] WHERE entity in %(name)s "
         self.sql2="SELECT * FROM [chentian].[dbo].[baike_triples1] WHERE entity ='%s' "
         # self.question='D:/QA/answer.txt'
